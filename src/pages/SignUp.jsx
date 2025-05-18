@@ -21,14 +21,13 @@ const SignUp = () => {
 
     createUser(email, password)
       .then((result) => {
-        console.log(result);
         // save user Profile Data  to MongoDB
         const userProfile = {
         ...profileData, 
         creationTime: result.user?.metadata?.creationTime,
         lastSignInTime: result.user?.metadata?.creationTime,
         }
-        fetch("http://localhost:3000/users", {
+        fetch("https://coffee-store-server-seven-alpha.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -37,7 +36,6 @@ const SignUp = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log("user profile data from db", data);
             if (data.insertedId) {
 
               Swal.fire({

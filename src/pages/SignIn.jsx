@@ -12,17 +12,15 @@ const SignIn = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { email, password } = Object.fromEntries(formData.entries());
-    console.log(email, password);
     signInUser(email, password)
       .then((result) => {
-        console.log(result)
         // logged in successfully
         // update user last sign in time to database
         const signInInfo = {
           email,
           lastSignInTime: result.user?.metadata?.lastSignInTime
         };
-        fetch('http://localhost:3000/users', {
+        fetch('https://coffee-store-server-seven-alpha.vercel.app/users', {
           method: "PATCH",
           headers: {
             'content-type': 'application/json'

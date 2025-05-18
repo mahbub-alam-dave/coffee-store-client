@@ -10,7 +10,6 @@ import { auth } from "../firebas-authentication/firebase.config";
 
 const Users = () => {
   const { users, setAllUsers } = useContext(ContextValue);
-  console.log(users.length);
 
   const handleDeleteUser = (id) => {
     Swal.fire({
@@ -23,12 +22,11 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/users/${id}`, {
+        fetch(`https://coffee-store-server-seven-alpha.vercel.app/users/${id}`, {
           method: "DELETE",
         })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log("user deleted from db", data);
+        .then((res) => res.json())
+        .then((data) => {
             if (data.deletedCount) {
                 const remainingUser = users.filter(user => user._id !== id)
                 setAllUsers(remainingUser)
@@ -39,7 +37,7 @@ const Users = () => {
                     // user deleted
                 }).
                 catch(error => 
-                    {console.log(error.message)})
+                {console.log(error.message)})
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",

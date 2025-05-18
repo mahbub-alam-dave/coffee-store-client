@@ -14,10 +14,9 @@ const AddCoffee = () => {
         const form = e.target;
         const formData = new FormData(form)
         const coffeeData = Object.fromEntries(formData.entries())
-        console.log(coffeeData)
 
         // add coffee to database
-        fetch("http://localhost:3000/coffees", {
+        fetch("https://coffee-store-server-seven-alpha.vercel.app/coffees", {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
@@ -26,7 +25,6 @@ const AddCoffee = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log('coffee after added to server', data)
             if(data.insertedId) {
                 coffeeData._id = data.insertedId;
                 setAllCoffees([...allCoffees, coffeeData])

@@ -10,12 +10,11 @@ const Home = () => {
     const {allCoffees, setAllCoffees} = useContext(ContextValue)
 
     const handleDeleteCoffee = (id) => {
-        fetch(`http://localhost:3000/coffees/${id}`, {
+        fetch(`https://coffee-store-server-seven-alpha.vercel.app/coffees/${id}`, {
             method: 'DELETE',
         })
         .then(res => res.json())
         .then(data => {
-            console.log('deleted coffee in db', data)
             if(data.deletedCount) {
                 const remainingCoffees = allCoffees.filter(coffee => coffee._id !== id);
                 setAllCoffees(remainingCoffees)

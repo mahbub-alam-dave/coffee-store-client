@@ -10,7 +10,6 @@ const UpdateCoffee = () => {
     const {id} = useParams()
     useEffect(()=>{
         const findDetailedCoffee = allCoffees.find(coffee => coffee._id === id)
-        console.log(findDetailedCoffee)
         if(findDetailedCoffee) {
             setDetailedCoffee(findDetailedCoffee)
         }
@@ -24,7 +23,7 @@ const UpdateCoffee = () => {
         const coffeeDetails = Object.fromEntries(formData.entries())
         
         // update coffee details in the server
-        fetch(`http://localhost:3000/coffees/${detailedCoffee._id}`, {
+        fetch(`https://coffee-store-server-seven-alpha.vercel.app/coffees/${detailedCoffee._id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json',
@@ -33,7 +32,6 @@ const UpdateCoffee = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log('coffee details after update', data)
             navigate('/')
             if(data.modifiedCount){
                 setAllCoffees(allCoffees.map(coffee => coffee._id === detailedCoffee._id ? {...coffee, ...coffeeDetails} : coffee))

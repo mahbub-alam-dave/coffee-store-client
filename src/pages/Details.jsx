@@ -8,7 +8,6 @@ const Details = () => {
     const {id} = useParams()
     useEffect(()=>{
         const findDetailedCoffee = allCoffees.find(coffee => coffee._id === id)
-        console.log(findDetailedCoffee)
         if(findDetailedCoffee) {
             setDetailedCoffee(findDetailedCoffee)
         }
