@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ContextValue } from './ContextValues';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebas-authentication/firebase.config';
 
 const ContextProvider = ({children}) => {
 
-    const values = {
+    const [allCoffees, setAllCoffees] = useState([])
+    const [users, setAllUsers] = useState([])
+    useEffect(()=>{
+        fetch('http://localhost:3000/coffees')
+        .then(res => res.json())
+        .then(data => setAllCoffees(data))
+    },[])
 
+    useEffect(() =>{
+        fetch("http://localhost:3000/users")
+        .then(res => res.json())
+        .then(data => setAllUsers(data))
+    },[])
+
+    const createUser =  (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    const signInUser = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    const values = {
+        allCoffees,
+        setAllCoffees,
+        users,
+        setAllUsers,
+        createUser,
+        signInUser
     }
     return (
         <ContextValue.Provider value={values}>
